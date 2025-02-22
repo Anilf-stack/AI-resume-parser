@@ -35,7 +35,7 @@ export default function Upload() {
     formData.append("email", email);
   
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/upload`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/upload`, {
         method: "POST",
         body: formData,
       });
