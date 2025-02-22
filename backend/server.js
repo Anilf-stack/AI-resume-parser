@@ -8,11 +8,23 @@ const jobRoutes = require("./routes/jobRoutes");
 dotenv.config();
 
 const app = express();
+const allowedOrigins = [
+  "https://ai-resume-parser-flax.vercel.app",
+  "https://ai-resume-parser-git-main-anil-jadavs-projects.vercel.app"
+];
+
 app.use(cors({
-  origin: "https://ai-resume-parser-flax.vercel.app", // Allow frontend origin
+  origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+      } else {
+          callback(new Error("Not allowed by CORS"));
+      }
+  },
   methods: "GET, POST, PUT, DELETE",
   allowedHeaders: "Content-Type, Authorization"
 }));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
